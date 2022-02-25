@@ -94,9 +94,9 @@ fn run(n: i32) {
 }
 
 fn main() {
-    let range = 7..20;
+    let range = 7..21;
 
-    let mut map = HashMap::<i32, Duration>::new();
+    let mut map = HashMap::<i32, u128>::new();
 
     for n in range {
         let now = Instant::now();
@@ -104,6 +104,8 @@ fn main() {
         run(n);
 
         let elapsed = now.elapsed();
-        map.insert(n, elapsed);
+        map.insert(n, elapsed.as_millis());
     }
+
+    println!("{:?}", map);
 }
