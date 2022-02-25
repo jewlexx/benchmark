@@ -52,11 +52,7 @@ fn inner(depth: i32, iterations: i32) -> String {
     format!("{}\t trees of depth {}\t check: {}", iterations, depth, chk)
 }
 
-fn main() {
-    let n = std::env::args()
-        .nth(1)
-        .and_then(|n| n.parse().ok())
-        .unwrap_or(10);
+fn run(n: i32) {
     let min_depth = 4;
     let max_depth = if min_depth + 2 > n { min_depth + 2 } else { n };
 
@@ -97,4 +93,13 @@ fn main() {
 
     let elapsed = now.elapsed();
     println!("Elapsed: {:.3?}", elapsed);
+}
+
+fn main() {
+    let n = std::env::args()
+        .nth(1)
+        .and_then(|n| n.parse().ok())
+        .unwrap_or(10);
+
+    run(n)
 }
