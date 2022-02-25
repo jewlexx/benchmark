@@ -56,8 +56,6 @@ fn run(n: i32) {
     let min_depth = 4;
     let max_depth = if min_depth + 2 > n { min_depth + 2 } else { n };
 
-    let now = Instant::now();
-
     {
         let arena = Bump::new();
         let depth = max_depth + 1;
@@ -90,9 +88,6 @@ fn run(n: i32) {
         max_depth,
         item_check(long_lived_tree)
     );
-
-    let elapsed = now.elapsed();
-    println!("Elapsed: {:.3?}", elapsed);
 }
 
 fn main() {
@@ -101,5 +96,10 @@ fn main() {
         .and_then(|n| n.parse().ok())
         .unwrap_or(10);
 
-    run(n)
+    let now = Instant::now();
+
+    run(n);
+
+    let elapsed = now.elapsed();
+    println!("Elapsed: {:.3?}", elapsed);
 }
