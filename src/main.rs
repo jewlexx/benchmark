@@ -9,7 +9,10 @@
 // modified by Volodymyr M. Lisivka
 // modified by Ryohei Machida
 
-use std::time::Instant;
+use std::{
+    collections::HashMap,
+    time::{Duration, Instant},
+};
 
 use bumpalo::Bump;
 use rayon::prelude::*;
@@ -91,15 +94,16 @@ fn run(n: i32) {
 }
 
 fn main() {
-    let n = std::env::args()
-        .nth(1)
-        .and_then(|n| n.parse().ok())
-        .unwrap_or(10);
+    let range = 7..20;
 
-    let now = Instant::now();
+    let mut map = HashMap::<i32, Duration>::new();
 
-    run(n);
+    for n in range {
+        let now = Instant::now();
 
-    let elapsed = now.elapsed();
-    println!("Elapsed: {:.3?}", elapsed);
+        run(n);
+
+        let elapsed = now.elapsed();
+        map.insert(n, elapsed);
+    }
 }
